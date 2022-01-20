@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>stopWatch</title>
+    <style>
+      p {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="clock"></p>
+    <button name="start" type="button">Start</button>
+    <button name="stop" type="button">Stop</button>
+    <button name="reset" type="button">Reset</button>
+
+    <script>
+      document.querySelector('.clock').textContent = 0;
+      let startButton = document.querySelector("[name='start']");
+      let stopButton = document.querySelector("[name='stop']");
+      let resetButton = document.querySelector("[name='reset']");
+      let time = 0;
+      let createClock;
+
+      function displayTime() {
+        time += 1;
+        document.querySelector('.clock').textContent = time;
+      }
+      
+      startButton.addEventListener('click', () => { 
+        createClock = setInterval(displayTime, 1000);
+        startButton.disabled = true;
+      });
+
+      stopButton.addEventListener('click', () => {
+        clearInterval(createClock);
+        startButton.disabled = false;
+      });
+
+      resetButton.addEventListener('click', () => {
+        clearInterval(createClock);
+        time = -1;
+        displayTime();
+        startButton.disabled = false;
+      });
+
+    </script>
+  </body>
+</html>
