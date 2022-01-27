@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
   <head>
     <meta charset="utf-8">
-    <title>Simple async sync example</title>
+    <title>My test page</title>
   </head>
   <body>
+    <p>This is my page</p>
     <script>
-      console.log ('Starting');
-      let image;
-
-      fetch('coffee.jpeg').then((response) => {
-        console.log('It worked :)')
+      let promise = fetch('coffee.jpeeeeg');
+      let promise2 = promise.then(response => {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      } else {
         return response.blob();
-      }).then((myBlob) => {
-        let objectURL = URL.createObjectURL(myBlob);
-        image = document.createElement('img');
-        image.src = objectURL;
-        document.body.appendChild(image);
-      }).then(() => console.log ('All done!')).catch((error) => {
-        console.log('There has been a problem with your fetch operation: ' + error.message);
-      });
+      }
+    });
+    let promise3 = promise2.then(myBlob => {
+      let objectURL = URL.createObjectURL(myBlob);
+      let image = document.createElement('img');
+      image.src = objectURL;
+      document.body.appendChild(image);
+    });
 
-      
+    let errorCase = promise3.catch(e => {
+      console.log('There has been a problem with your fetch operation: ' + e.message);
+    });
+
     </script>
   </body>
 </html>
